@@ -1,171 +1,243 @@
-# ☁️ Azure Weather Dashboard
+<div align="center">
 
-A minimal, production-ready full-stack weather app built for the cloud. Demonstrates Azure serverless architecture: an **Azure Function** (Python) as the API layer and an **Azure Static Web App** for the frontend, connected with automatic CI/CD via GitHub Actions.
+# Azure Weather Dashboard
 
+![Azure](https://img.shields.io/badge/Azure-Serverless-0078D4?style=for-the-badge&logo=microsoft-azure)
+![Azure Functions](https://img.shields.io/badge/Azure_Functions-v4-0062AD?style=for-the-badge&logo=azure-functions)
+![Azure Static Web Apps](https://img.shields.io/badge/Static_Web_Apps-Frontend-5E2D79?style=for-the-badge&logo=microsoft-azure)
+![Python](https://img.shields.io/badge/Python-3.12-3776AB?style=for-the-badge&logo=python)
+![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?style=for-the-badge&logo=javascript)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-06B6D4?style=for-the-badge&logo=tailwind-css)
+![Licencia](https://img.shields.io/badge/Licencia-MIT-green?style=for-the-badge)
+
+### Dashboard meteorológico en tiempo real con arquitectura serverless en Azure
+
+[Ver Demo en Vivo](https://gentle-pond-0d85daf0f.1.azurestaticapps.net) · [Documentación](https://github.com/AndresRJ18/AZURE-Weather) · [Reportar Bug](https://github.com/AndresRJ18/AZURE-Weather/issues)
+
+</div>
+
+---
+
+## Descripción
+
+Aplicación full-stack de consulta meteorológica construida con arquitectura serverless en Azure. Demuestra la integración entre **Azure Functions** (Python) como capa API y **Azure Static Web Apps** para el frontend, conectados mediante CI/CD automático con GitHub Actions.
+
+### Características
+
+- Clima actual con temperatura, sensación térmica, humedad y velocidad del viento
+- Pronóstico extendido de 5 días con temperaturas máximas y mínimas
+- Modo oscuro/claro con preferencia persistente en localStorage
+- Estados de carga y manejo robusto de errores
+- Diseño responsivo optimizado para dispositivos móviles y escritorio
+- Arquitectura serverless sin servidores que mantener
+- Credenciales seguras mediante Azure App Settings
+
+---
+
+## Arquitectura
 ```mermaid
 graph TD
-    A[👤 User] -->|Search city| B[Azure Static Web App\nVanilla JS + Tailwind]
-    B -->|GET /api/weather?city=| C[Azure Function\nPython 3.12]
-    C -->|External HTTP request| D[OpenWeatherMap API]
-    D -->|Raw JSON| C
-    C -->|Normalized JSON| B
-    B -->|Rendered cards| A
+    A[Usuario] -->|Busca ciudad| B[Azure Static Web App<br/>Vanilla JS + Tailwind]
+    B -->|GET /api/weather?city=| C[Azure Function<br/>Python 3.12]
+    C -->|Solicitud HTTP| D[OpenWeatherMap API]
+    D -->|JSON crudo| C
+    C -->|JSON normalizado| B
+    B -->|Renderiza UI| A
 ```
 
----
+### Stack Tecnológico
 
-## What it is
-
-| Layer | Tech |
-|---|---|
-| Backend API | Azure Functions (Python 3.12, HTTP trigger) |
-| Frontend | Vanilla JS · Tailwind CSS CDN · SPA |
-| Hosting | Azure Static Web Apps (free tier) |
-| CI/CD | GitHub Actions (push-to-deploy) |
-| Data | OpenWeatherMap free API |
-
-**Features:** current conditions, 5-day forecast, dark/light mode (persisted), loading states, error handling, CORS headers, no secrets in repo.
+| Capa | Tecnología |
+|------|------------|
+| **Backend API** | Azure Functions (Python 3.12, HTTP trigger) |
+| **Frontend** | Vanilla JavaScript · Tailwind CSS CDN · SPA |
+| **Hosting** | Azure Static Web Apps (Free tier) |
+| **CI/CD** | GitHub Actions (deploy automático) |
+| **API Externa** | OpenWeatherMap (free tier) |
 
 ---
 
-## Project Structure
-
+## Estructura del Proyecto
 ```
 azure-weather-dashboard/
 ├── backend/
 │   ├── WeatherFunction/
-│   │   ├── __init__.py          # HTTP handler + OpenWeather logic
-│   │   └── function.json        # HTTP trigger binding
+│   │   ├── __init__.py          # HTTP handler + lógica OpenWeather
+│   │   └── function.json        # Configuración del trigger HTTP
 │   ├── host.json
 │   ├── requirements.txt
 │   └── local.settings.json.template
 ├── frontend/
-│   ├── index.html               # Single page app
-│   ├── js/app.js                # Fetch, render, dark-mode logic
-│   └── staticwebapp.config.json # SWA routing rules
+│   ├── index.html               # Single Page Application
+│   ├── js/app.js                # Lógica de fetch, render y dark mode
+│   └── staticwebapp.config.json # Reglas de routing de SWA
 ├── .github/workflows/
-│   └── deploy.yml               # Backend + frontend CI/CD
+│   └── deploy.yml               # Pipeline de CI/CD
 └── .gitignore
 ```
 
 ---
 
-## How to Run Locally
+## Ejecución Local
 
-### Prerequisites
-- Python 3.12
-- [Azure Functions Core Tools v4](https://learn.microsoft.com/en-us/azure/azure-functions/functions-run-local)
-- A free [OpenWeatherMap API key](https://openweathermap.org/api)
+### Prerrequisitos
 
-### 1. Clone and set up backend
+- Python 3.12+
+- [Azure Functions Core Tools v4](https://learn.microsoft.com/azure/azure-functions/functions-run-local)
+- [OpenWeatherMap API Key](https://openweathermap.org/api) (gratis)
 
+### 1. Configurar el Backend
 ```bash
-git clone https://github.com/your-user/azure-weather-dashboard.git
-cd azure-weather-dashboard/backend
+git clone https://github.com/AndresRJ18/AZURE-Weather.git
+cd AZURE-Weather/backend
 
-# Create virtual environment
-python -m venv .venv && source .venv/bin/activate   # Windows: .venv\Scripts\activate
+# Crear entorno virtual
+python -m venv .venv
+# Windows:
+.venv\Scripts\activate
+# Linux/Mac:
+source .venv/bin/activate
+
+# Instalar dependencias
 pip install -r requirements.txt
 
-# Configure local secrets (never commit this file)
+# Configurar secrets locales (nunca commitear este archivo)
 cp local.settings.json.template local.settings.json
-# → Edit local.settings.json and set OPENWEATHER_API_KEY
+# Editar local.settings.json y añadir OPENWEATHER_API_KEY
 ```
 
-### 2. Start the Function App
-
+### 2. Iniciar la Function App
 ```bash
-# Still inside /backend
+# Dentro de /backend
 func start
-# Function available at: http://localhost:7071/api/weather?city=London
+# API disponible en: http://localhost:7071/api/weather?city=Lima
 ```
 
-### 3. Serve the frontend
+### 3. Servir el Frontend
 
-In a separate terminal, serve the `frontend/` folder with any static server:
-
+En una terminal separada:
 ```bash
-# Python built-in (from /frontend)
 cd ../frontend
+
+# Opción 1: Servidor HTTP de Python
 python -m http.server 3000
-# Open http://localhost:3000
+
+# Opción 2: Con Node.js (si está instalado)
+npx serve -p 3000
+
+# Abrir: http://localhost:3000
 ```
 
-> **Tip:** The frontend calls `/api/weather` (relative URL). For local dev, temporarily change `API_BASE` in `app.js` to `http://localhost:7071/api/weather` if not using a proxy.
+> **Nota:** Para desarrollo local, cambiar temporalmente `API_BASE` en `app.js` a `http://localhost:7071/api/weather`
 
 ---
 
-## How to Deploy
+## Deployment en Azure
 
-### One-time Azure resource setup (Azure CLI)
-
+### Setup Inicial de Recursos (una sola vez)
 ```bash
-# Variables – change these
+# Variables - personalizar estos valores
 RG="rg-weather-dashboard"
-LOCATION="eastus"
-STORAGE="stweatherfn001"
+LOCATION="eastus2"
+STORAGE="saweather$(Get-Random -Maximum 9999)"
 FUNCAPP="azure-weather-fn"
-SWAAPP="azure-weather-swa"
+SWAAPP="swa-weather-dashboard"
 
-# 1. Resource group
+# 1. Crear Resource Group
 az group create --name $RG --location $LOCATION
 
-# 2. Storage account (required by Functions)
-az storage account create \
-  --name $STORAGE --resource-group $RG \
+# 2. Storage Account (requerido por Azure Functions)
+az storage account create `
+  --name $STORAGE --resource-group $RG `
   --location $LOCATION --sku Standard_LRS
 
 # 3. Function App (Python 3.12, Consumption plan)
-az functionapp create \
-  --name $FUNCAPP --resource-group $RG \
-  --storage-account $STORAGE \
-  --consumption-plan-location $LOCATION \
-  --runtime python --runtime-version 3.12 \
+az functionapp create `
+  --name $FUNCAPP --resource-group $RG `
+  --storage-account $STORAGE `
+  --consumption-plan-location $LOCATION `
+  --runtime python --runtime-version 3.12 `
   --functions-version 4 --os-type Linux
 
-# 4. Set the OpenWeather API key as an app setting (secure – not in code)
-az functionapp config appsettings set \
-  --name $FUNCAPP --resource-group $RG \
-  --settings OPENWEATHER_API_KEY="<your_key_here>"
+# 4. Configurar API Key como App Setting (seguro - no en código)
+az functionapp config appsettings set `
+  --name $FUNCAPP --resource-group $RG `
+  --settings "OPENWEATHER_API_KEY=TU_API_KEY_AQUI"
 
-# 5. Static Web App (link to Function App for /api routing)
-az staticwebapp create \
-  --name $SWAAPP --resource-group $RG \
-  --location "eastus2" \
-  --linked-backends '[{"backendResourceId":"/subscriptions/<sub>/resourceGroups/'$RG'/providers/Microsoft.Web/sites/'$FUNCAPP'","region":"'$LOCATION'","backendType":"AzureFunctions"}]'
+# 5. Static Web App
+az staticwebapp create `
+  --name $SWAAPP --resource-group $RG `
+  --location $LOCATION `
+  --source https://github.com/AndresRJ18/AZURE-Weather `
+  --branch main `
+  --app-location "frontend" `
+  --login-with-github
+
+# 6. Configurar CORS en Function App
+az functionapp cors add `
+  --name $FUNCAPP --resource-group $RG `
+  --allowed-origins https://$(az staticwebapp show --name $SWAAPP --resource-group $RG --query defaultHostname -o tsv)
 ```
 
-### GitHub Secrets
+### Configurar GitHub Secrets
 
-Go to **GitHub → Settings → Secrets and variables → Actions** and add:
+Ir a **Settings → Secrets and variables → Actions** y añadir:
 
-| Secret | Where to get it |
-|---|---|
-| `AZURE_FUNCTIONAPP_PUBLISH_PROFILE` | Azure Portal → Function App → **Get publish profile** |
-| `AZURE_STATIC_WEB_APPS_API_TOKEN` | Shown during SWA creation or Portal → Static Web App → **Manage deployment token** |
+| Secret | Cómo obtenerlo |
+|--------|----------------|
+| `AZURE_STATIC_WEB_APPS_API_TOKEN` | `az staticwebapp secrets list --name $SWAAPP --resource-group $RG --query "properties.apiKey" -o tsv` |
 
-### Deploy
+### Deployment Manual del Backend
 
-Push to `main` — GitHub Actions handles the rest automatically.
+El backend se deploya manualmente usando Azure Functions Core Tools:
+```bash
+cd backend
+func azure functionapp publish azure-weather-fn --python
+```
 
+### Deploy del Frontend
+
+El frontend se deploya automáticamente mediante GitHub Actions al hacer push a `main`:
 ```bash
 git add .
-git commit -m "feat: initial deploy"
+git commit -m "feat: initial deployment"
 git push origin main
 ```
 
 ---
 
-## Key Learnings
+## Aprendizajes Clave
 
-- **Azure Static Web Apps + linked Function App** provide first-class `/api/*` routing without any CORS configuration or API Gateway.
-- **Azure Functions Consumption plan** offers ~1M free executions/month — ideal for portfolio projects.
-- **Separating secrets** into Azure App Settings keeps credentials out of source control while making them available as environment variables at runtime.
-- **Normalized API responses** in the Function layer decouple the frontend from upstream API changes.
-- **GitHub Actions** with `azure/functions-action` and `Azure/static-web-apps-deploy` enables zero-click deploys on every push.
+- **Azure Static Web Apps + Function App** proporcionan routing `/api/*` automático sin necesidad de configurar CORS adicional o API Gateway
+- **Azure Functions Consumption plan** ofrece aproximadamente 1 millón de ejecuciones gratuitas por mes, ideal para proyectos de portafolio
+- **Separación de secrets** mediante Azure App Settings mantiene las credenciales fuera del control de versiones
+- **Respuestas API normalizadas** en la capa de Function desacoplan el frontend de cambios en APIs externas
+- **GitHub Actions** con `Azure/static-web-apps-deploy` habilita deployments automáticos sin intervención manual
 
 ---
 
-## License
+## Autor
 
-MIT © 2025
+**Andrés Rodas**  
+Estudiante de Ingeniería Informática — Universidad Peruana Cayetano Heredia (UPCH)  
+Especialización en Cloud Computing e Inteligencia Artificial
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Andrés_Rodas-0A66C2?style=flat&logo=linkedin)](https://www.linkedin.com/in/andres-rodas-802309272)
+[![GitHub](https://img.shields.io/badge/GitHub-@AndresRJ18-181717?style=flat&logo=github)](https://github.com/AndresRJ18)
+[![Email](https://img.shields.io/badge/Email-andrescloud18sj@gmail.com-D14836?style=flat&logo=gmail)](mailto:andrescloud18sj@gmail.com)
+
+---
+
+## Licencia
+
+Este proyecto está licenciado bajo la Licencia MIT. Consulta el archivo [LICENSE](LICENSE) para más detalles.
+
+---
+
+<div align="center">
+
+Si este proyecto te resultó útil, considera darle una estrella en GitHub
+
+[Volver al inicio](#azure-weather-dashboard)
+
+</div>
